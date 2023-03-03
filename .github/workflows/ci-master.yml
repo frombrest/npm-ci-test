@@ -28,6 +28,12 @@ jobs:
         git config user.name 'CI Pipeline'
         git config user.email 'test@test.com'
     - name: bump version
-      run: npm version patch
+      run: |
+        LAST_TAG=$(git tag | tail -n 1)
+        echo $LAST_TAG
+        VER=minor
+        git log $LAST_TAG..HEAD | grep feature || VER=patch
+        echo $VER
+        npm version $VER
     - name: Push latest version
       run: git push origin master --follow-tags
