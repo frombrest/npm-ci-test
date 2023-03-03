@@ -15,7 +15,7 @@ jobs:
     - name: Check out source
       uses: actions/checkout@v2
       with:
-        fetch-depth: 50
+        fetch-depth: 0
         ssh-key: ${{ secrets.DEPLOY_KEY }}
     - name: Setup Node.js
       uses: actions/setup-node@v2
