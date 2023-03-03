@@ -29,11 +29,9 @@ jobs:
         git config user.email 'test@test.com'
     - name: bump version
       run: |
-        echo "LAST_TAG=$(git tag | tail -n 1)" >> $GITHUB_ENV
-        echo $LAST_TAG
-        echo "VER=minor" >> $GITHUB_ENV
+        VER=minor
         echo $VER
-        git log $LAST_TAG..HEAD | grep feature || VER=patch
+        git log $(git tag | tail -n 1)..HEAD | grep feature || VER=patch
         npm version $VER
     - name: Push latest version
       run: git push origin master --follow-tags
