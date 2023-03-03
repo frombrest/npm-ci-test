@@ -1,5 +1,7 @@
 name: ci-master
-concurrency: master-build
+concurrency: 
+  group: master-build
+  cancel-in-progress: true
 
 on:
   push:
