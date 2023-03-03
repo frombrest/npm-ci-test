@@ -31,10 +31,9 @@ jobs:
     - name: bump version
       run: |
         VER=minor
-        echo $VER
+        echo "$(git log)"
         git log $(git tag | tail -n 1)..HEAD | grep feature || VER=patch
         echo "$VER release"
-        echo $VER
         npm version $VER
     - name: Push latest version
       run: git push origin master --follow-tags
