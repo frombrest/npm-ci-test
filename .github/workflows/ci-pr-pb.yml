@@ -1,0 +1,17 @@
+name: ci-pr-pb
+
+on:
+  pull_request:
+    branches: [ master ]
+  merge_group:
+    branches: [ master ]
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: bump version
+      run: |
+        echo "Hi!"
+        sleep 10
+        echo "Bye!"
