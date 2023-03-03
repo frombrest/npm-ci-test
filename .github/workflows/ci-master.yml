@@ -5,7 +5,8 @@ on:
     branches:
       - master
     paths-ignore:
-      - version
+      - 'package-lock.json'
+      - 'package.json'
 
 jobs:
   bump-version:
