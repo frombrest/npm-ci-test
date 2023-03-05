@@ -2,6 +2,8 @@ name: cd-release-deploy
 
 on:
   release:
+    types:
+      - created
 
 jobs:
   deploy-stg:
