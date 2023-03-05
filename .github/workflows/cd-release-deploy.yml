@@ -2,10 +2,12 @@ name: cd-release-deploy
 
 on:
   release:
-    types: [created]
+    types: created
 
 jobs:
   deploy-stg:
+    concurrency: 
+      group: deploy-stg
     runs-on: ubuntu-latest
     environment:
       name: PROD
@@ -18,6 +20,9 @@ jobs:
         sleep 10
 
   deploy-prod:
+    concurrency: 
+      group: deploy-prod
+    needs: [deploy-stg]
     runs-on: ubuntu-latest
     environment:
       name: PROD
