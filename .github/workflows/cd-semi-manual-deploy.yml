@@ -1,0 +1,55 @@
+name: cd-semi-manual-deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      print_tags:
+        description: 'True to print to STDOUT'
+        required: true
+        type: boolean
+      tags:
+        description: 'Test scenario tags'
+        required: true
+        type: string
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
+
+jobs:
+  deploy-stg:
+    concurrency: 
+      group: deploy-stg
+    runs-on: ubuntu-latest
+    environment:
+      name: STG
+      url: https://stg.test.com
+    steps:
+    - name: Deploy to staging
+      run: |
+        echo "$GITHUB_REF"
+        echo "$GITHUB_REF_NAME"
+        sleep 10
+  deploy-prod:
+    concurrency: 
+      group: deploy-prod
+    needs: [deploy-stg]
+    runs-on: ubuntu-latest
+    environment:
+      name: PROD
+      url: https://prod.test.com
+    steps:
+    - name: Deploy to staging
+      run: |
+        echo "$GITHUB_REF"
+        echo "$GITHUB_REF_NAME"
+        sleep 10
