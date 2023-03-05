@@ -1,9 +1,15 @@
 name: cd-release-deploy
 
+# on:
+#   release:
+#     types:
+#       - created
+
 on:
-  release:
-    types:
-      - created
+  workflow_run:
+    workflows: [ci-release]
+    types: [completed]
+
 
 jobs:
   deploy-stg:
