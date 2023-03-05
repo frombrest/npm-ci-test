@@ -1,14 +1,13 @@
 name: cd-release-deploy
 
-# on:
-#   release:
-#     types:
-#       - created
-
 on:
-  workflow_run:
-    workflows: [ci-release]
-    types: [completed]
+  release:
+    types: [created]
+
+# on:
+#   workflow_run:
+#     workflows: [ci-release]
+#     types: [completed]
 
 
 jobs:
@@ -17,8 +16,8 @@ jobs:
       group: deploy-stg
     runs-on: ubuntu-latest
     environment:
-      name: PROD
-      url: https://prod.test.com
+      name: STG
+      url: https://stg.test.com
     steps:
     - name: Deploy to staging
       run: |
