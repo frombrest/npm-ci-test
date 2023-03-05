@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy-stg:
-    if:  ${{ inputs.environment }} == STG
+    if:  ${{ inputs.environment == 'STG' }} 
     concurrency: 
       group: deploy-stg
     runs-on: ubuntu-latest
@@ -20,11 +20,12 @@ jobs:
     steps:
     - name: Deploy to staging
       run: |
+        echo "${{ inputs.environment }} "
         echo "$GITHUB_REF"
         echo "$GITHUB_REF_NAME"
         sleep 10
   deploy-prod:
-    if:  ${{ inputs.environment }} == PROD
+    if:  ${{ inputs.environment == 'PROD' }}
     concurrency: 
       group: deploy-prod
     runs-on: ubuntu-latest
@@ -32,8 +33,9 @@ jobs:
       name: PROD
       url: https://prod.test.com
     steps:
-    - name: Deploy to staging
+    - name: Deploy to prod
       run: |
+        echo "${{ inputs.environment }} "
         echo "$GITHUB_REF"
         echo "$GITHUB_REF_NAME"
         sleep 10
