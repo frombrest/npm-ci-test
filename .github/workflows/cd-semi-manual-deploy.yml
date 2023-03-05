@@ -3,23 +3,6 @@ name: cd-semi-manual-deploy
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
-      tags:
-        description: 'Test scenario tags'
-        required: true
-        type: string
       environment:
         description: 'Environment to run tests against'
         type: environment
@@ -27,6 +10,7 @@ on:
 
 jobs:
   deploy-stg:
+    if:  ${{ inputs.environment }} == STG
     concurrency: 
       group: deploy-stg
     runs-on: ubuntu-latest
@@ -40,9 +24,9 @@ jobs:
         echo "$GITHUB_REF_NAME"
         sleep 10
   deploy-prod:
+    if:  ${{ inputs.environment }} == PROD
     concurrency: 
       group: deploy-prod
-    needs: [deploy-stg]
     runs-on: ubuntu-latest
     environment:
       name: PROD
