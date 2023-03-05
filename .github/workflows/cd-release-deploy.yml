@@ -1,0 +1,30 @@
+name: cd-release-deploy
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy-stg:
+    runs-on: ubuntu-latest
+    environment:
+      name: PROD
+      url: https://prod.test.com
+    steps:
+    - name: Deploy to staging
+      run: |
+        echo "$GITHUB_REF"
+        echo "$GITHUB_REF_NAME"
+        sleep 10
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment:
+      name: PROD
+      url: https://prod.test.com
+    steps:
+    - name: Deploy to staging
+      run: |
+        echo "$GITHUB_REF"
+        echo "$GITHUB_REF_NAME"
+        sleep 10
